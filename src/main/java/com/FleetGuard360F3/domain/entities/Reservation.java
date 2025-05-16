@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Data
@@ -41,6 +42,6 @@ public class Reservation {
     private Stop destinationStop;
 
     private Date date;
-    private String time;
+    private LocalTime time;
     private Timestamp timestamp;
 }
