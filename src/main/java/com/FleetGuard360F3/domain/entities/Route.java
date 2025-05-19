@@ -21,8 +21,8 @@ public class Route {
     private Long id;
 
     private String name;
-    private LocalTime departureTime;
-    private LocalTime arrivalTime;
+//    private LocalTime departureTime;
+//    private LocalTime arrivalTime;
 
     @OneToMany(mappedBy = "route")
     private List<Reservation> reservations;

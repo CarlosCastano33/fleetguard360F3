@@ -16,7 +16,6 @@ import java.time.LocalTime;
 @Table(name = "driver_vehicle_shifts")
 
 public class DriverVehicleShift {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

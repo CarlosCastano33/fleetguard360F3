@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,4 +34,8 @@ public class RouteStop {
 
     // Campo adicional: orden de parada en la ruta
     private int orderInRoute;
+
+    private boolean firstStop;
+    private boolean lastStop;
+    private LocalTime timeInStop;
 }

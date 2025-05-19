@@ -20,7 +20,6 @@ public class Driver {
     private Long id;
 
     private String name;
-
     private String phone;
 
     @OneToMany(mappedBy = "driver")
