@@ -1,7 +1,5 @@
 package com.FleetGuard360F3.domain.entities;
 
-import com.FleetGuard360F3.domain.entities.Route;
-import com.FleetGuard360F3.domain.entities.Stop;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,7 +31,7 @@ public class RouteStop {
     private Stop stop;
 
     // Campo adicional: orden de parada en la ruta
-    private int orderInRoute;
+    private int stopOrder;
 
     private boolean firstStop;
     private boolean lastStop;

@@ -2,18 +2,24 @@ package com.FleetGuard360F3.Controller;
 
 import com.FleetGuard360F3.DTO.PassengerDTO;
 import com.FleetGuard360F3.services.IPassengerService;
+import com.FleetGuard360F3.utils.JwtUtil;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/passengers")
 public class PassengerController {
 
     private final IPassengerService passengerService;
+
+    //JWT
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Autowired
     public PassengerController(IPassengerService passengerService){
@@ -25,5 +31,21 @@ public class PassengerController {
         PassengerDTO createdPassenger = passengerService.createPassenger(passengerDTO);
         return ResponseEntity.ok(createdPassenger);
     }
+
+    @GetMapping("/confirm")
+    public ResponseEntity<String> confirmEmail(@RequestParam String token, HttpServletResponse response) {
+
+//        try {
+            String email = jwtUtil.getEmailFromToken(token);
+            // Aquí actualizo la base de datos para marcar al usuario como confirmado
+            Cookie authCookie  = new Cookie("X-FleetGuard360-Auth", token);
+            response.addCookie(authCookie);
+            //ToDo Crear un nuevo token, de autenticacion
+            return ResponseEntity.ok("Cuenta confirmada para: " + email);
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token inválido o expirado");
+//        }
+    }
+
 
 }
