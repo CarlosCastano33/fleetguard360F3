@@ -9,7 +9,6 @@ import java.util.Date;
 
 @Component
 public class JwtUtil {
-
     private final String secret = "superSecretsuperSecretsuperSecretsuperSecretsuperSecretsuperSecretsuperSecretsuperSecretsuperSecret";
 
     public String generateToken(String email) {
