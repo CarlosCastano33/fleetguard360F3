@@ -20,7 +20,7 @@ public class Driver {
     private Long id;
 
     private String name;
-    private String phone;
+    private String phoneNumber;
 
     @OneToMany(mappedBy = "driver")
     private List<DriverVehicleShift> shifts;

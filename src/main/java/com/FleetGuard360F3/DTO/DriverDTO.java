@@ -1,5 +1,6 @@
 package com.FleetGuard360F3.DTO;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class PassengerDTO {
+public class DriverDTO {
     private Long id;
     private String name;
     private String phoneNumber;
-    private String email;
+    private List<DriverVehicleShiftDTO> shifts;
 }
