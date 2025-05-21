@@ -18,13 +18,18 @@ public class PassengerController {
     private final IPassengerService passengerService;
 
     //JWT
-    @Autowired
     private JwtUtil jwtUtil;
 
     @Autowired
-    public PassengerController(IPassengerService passengerService){
+    public PassengerController(IPassengerService passengerService, JwtUtil jwtUtil) {
         this.passengerService = passengerService;
+        this.jwtUtil = jwtUtil;
     }
+//
+//    @Autowired
+//    public PassengerController(IPassengerService passengerService){
+//        this.passengerService = passengerService;
+//    }
 
     @PostMapping
     public ResponseEntity<PassengerDTO> createPassenger(@RequestBody PassengerDTO passengerDTO){

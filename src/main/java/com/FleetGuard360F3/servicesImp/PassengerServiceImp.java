@@ -42,6 +42,7 @@ public class PassengerServiceImp implements IPassengerService {
                 + "<a href=\"" + confirmationLink + "\">Confirmar correo</a>";
 
         try {
+            System.out.println("📩 Enviando correo de confirmación a: " + passenger.getEmail());
             emailService.sendConfirmationEmail(passenger.getEmail(), "Confirma tu cuenta", emailBody);
         } catch (Exception e) {
             e.printStackTrace(); // o usar un logger

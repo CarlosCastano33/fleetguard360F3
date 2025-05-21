@@ -34,7 +34,11 @@ public class EmailService {
         request.setEndpoint("mail/send");
         request.setBody(mail.build());
 
-        sg.api(request);
+        Response response = sg.api(request); // ✅ Envío
+
+        // 🔽 Logs importantes para ver si se envió bien
+        System.out.println("✅ SendGrid status: " + response.getStatusCode());
+        System.out.println("📝 Response body: " + response.getBody());
     }
 }
 
