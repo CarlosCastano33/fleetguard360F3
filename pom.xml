@@ -167,6 +167,9 @@
 				</configuration>
 			</plugin>
 		</plugins>
+
+		<finalName>fleetguard360</finalName>
+
 	</build>
 
 </project>

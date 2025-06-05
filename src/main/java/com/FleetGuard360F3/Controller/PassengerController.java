@@ -12,7 +12,7 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/passengers")
+@RequestMapping("/api/passenger")
 public class PassengerController {
 
     private final IPassengerService passengerService;
