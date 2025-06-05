@@ -13,6 +13,8 @@ jobs:
     name: Build
     #Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
+    env:
+      SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
     steps:
     #Check-out your repository under $GITHUB_WORKSPACE, so your workflow can access it
       - uses: actions/checkout@v1
@@ -43,9 +45,7 @@ jobs:
           path: target/fleetguard360.jar
 
     #        ////
-      - name: Run App with SendGrid Key
-        env:
-          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+
     #        ////
 
       - name: Build & push Docker image
