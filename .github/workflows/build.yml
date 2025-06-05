@@ -8,10 +8,10 @@ on:
       - master
 
 jobs:
-#Build's job
-build:
+  #Build's job
+  build:
   name: Build
-  #Run on Ubuntu using the latest version
+    #Run on Ubuntu using the latest version
   runs-on: ubuntu-latest
   steps:
     #Check-out your repository under $GITHUB_WORKSPACE, so your workflow can access it
