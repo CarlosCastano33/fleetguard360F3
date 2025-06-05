@@ -1,3 +1,13 @@
+name: Build and Push Docker Image
+on:
+  #Manually trigger workflow runs
+  workflow_dispatch:
+  #Trigger the workflow on push from the main branch
+  push:
+    branches:
+      - master
+
+jobs:
 #Build's job
 build:
   name: Build
@@ -32,11 +42,11 @@ build:
         #From this path
         path: target/fleetguard360.jar
 
-#        ////
+    #        ////
     - name: Run App with SendGrid Key
       env:
         SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
-#        ////
+    #        ////
 
     - name: Build & push Docker image
       uses: mr-smithers-excellent/docker-build-push@v6
