@@ -7,12 +7,16 @@ import com.FleetGuard360F3.domain.repository.IPassengerRepository;
 import com.FleetGuard360F3.services.IPassengerService;
 import com.FleetGuard360F3.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PassengerServiceImp implements IPassengerService {
     private final IPassengerRepository passengerRepository;
     private final PassengerMapper passengerMapper;
+
+    @Value("${app.base.url}")
+    private String baseUrl;
 
     //JWT
     @Autowired
@@ -37,7 +41,7 @@ public class PassengerServiceImp implements IPassengerService {
 
     private void sendConfirmationEmail(Passenger passenger) {
         String token = jwtUtil.generateToken(passenger.getEmail());
-        String confirmationLink = "http://localhost:8080/api/passengers/confirm?token=" + token;
+        String confirmationLink = baseUrl + "/api/passenger/confirm?token=" + token;
         String emailBody = "<p>Gracias por registrarte. Haz clic en el siguiente enlace para confirmar tu cuenta:</p>"
                 + "<a href=\"" + confirmationLink + "\">Confirmar correo</a>";
 
