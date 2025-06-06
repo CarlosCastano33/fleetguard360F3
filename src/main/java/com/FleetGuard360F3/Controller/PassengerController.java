@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/passenger")
 public class PassengerController {
 
+    @GetMapping("/")
+    public String healthCheck() {
+        return "HEALTH CHECK OK";
+    }
+
     private final IPassengerService passengerService;
 
     //JWT
