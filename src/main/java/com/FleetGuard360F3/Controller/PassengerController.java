@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/passenger")
 public class PassengerController {
@@ -57,5 +59,10 @@ public class PassengerController {
 //        }
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<PassengerDTO>> getAllPassengers() {
+        List<PassengerDTO> passengersDTO = passengerService.getAllPassengers();
+        return ResponseEntity.ok(passengersDTO);
+    }
 
 }

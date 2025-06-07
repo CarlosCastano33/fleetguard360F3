@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class PassengerServiceImp implements IPassengerService {
     private final IPassengerRepository passengerRepository;
@@ -53,5 +56,12 @@ public class PassengerServiceImp implements IPassengerService {
         }
     }
 
+    @Override
+    public List<PassengerDTO> getAllPassengers(){
+        List<Passenger> passengers = passengerRepository.findAll();
+        return passengers.stream()
+                .map(passengerMapper::toDTO)
+                .collect(Collectors.toList());
+    }
 
 }
