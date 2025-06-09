@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*") // permite cualquier origen
 @RestController
 @RequestMapping("/api/passenger")
 public class PassengerController {
