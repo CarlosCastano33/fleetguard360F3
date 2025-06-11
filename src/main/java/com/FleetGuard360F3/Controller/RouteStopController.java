@@ -28,11 +28,11 @@ public class RouteStopController {
         return ResponseEntity.ok(origins);
     }
 
-    @GetMapping("/destinationss")
-    public ResponseEntity<List<RouteStopDTO>> getDestinationsFromOrigin(@RequestParam String origin){
-        List<RouteStopDTO> destinations = routeStopService.getDestinationsFromOrigin(origin);
-        return ResponseEntity.ok(destinations);
-    }
+//    @GetMapping("/destinationss")
+//    public ResponseEntity<List<RouteStopDTO>> getDestinationsFromOrigin(@RequestParam String origin){
+//        List<RouteStopDTO> destinations = routeStopService.getDestinationsFromOrigin(origin);
+//        return ResponseEntity.ok(destinations);
+//    }
 
 }
 
