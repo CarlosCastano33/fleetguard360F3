@@ -30,28 +30,28 @@ public class RouteStopServiceImp implements IRouteStopService {
         return routeStopMapper.toDTOs(origins);
     }
 
-    @Override
-    public List<RouteStopDTO> getDestinationsFromOrigin(String origin){
-        List<RouteStop> originStops = routeStopRepository.findByStopNameAndLastStopFalse(origin);
-        Set<Long> addedStopIds = new HashSet<>(); // evitar duplicados
-        List<RouteStopDTO> destinationDTOs = new ArrayList<>();
+//    @Override
+//    public List<RouteStopDTO> getDestinationsFromOrigin(String origin){
+//        List<RouteStop> originStops = routeStopRepository.findByStopNameAndLastStopFalse(origin);
+//        Set<Long> addedStopIds = new HashSet<>(); // evitar duplicados
+//        List<RouteStopDTO> destinationDTOs = new ArrayList<>();
+//
+//        for (RouteStop originStop : originStops) {
+//            List<RouteStop> stopsInRoute = routeStopRepository.findByRouteIdOrderByStopOrderAsc(
+//                    originStop.getRoute().getId());
+//
+//            boolean foundOrigin = false;
+//            for (RouteStop stop : stopsInRoute) {
+//                if (stop.getId().equals(originStop.getId())) {
+//                    foundOrigin = true;
+//                    continue;
+//                }
+//                if (foundOrigin && addedStopIds.add(stop.getStop().getId())) {
+//                    destinationDTOs.add(routeStopMapper.toDTO(stop));
+//                }
+//            }
+//        }
 
-        for (RouteStop originStop : originStops) {
-            List<RouteStop> stopsInRoute = routeStopRepository.findByRouteIdOrderByStopOrderAsc(
-                    originStop.getRoute().getId());
-
-            boolean foundOrigin = false;
-            for (RouteStop stop : stopsInRoute) {
-                if (stop.getId().equals(originStop.getId())) {
-                    foundOrigin = true;
-                    continue;
-                }
-                if (foundOrigin && addedStopIds.add(stop.getStop().getId())) {
-                    destinationDTOs.add(routeStopMapper.toDTO(stop));
-                }
-            }
-        }
-
-        return destinationDTOs;
-    }
+//        return destinationDTOs;
+//    }
 }

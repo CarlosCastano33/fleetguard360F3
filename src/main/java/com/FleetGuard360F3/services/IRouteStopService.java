@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface IRouteStopService {
     List<RouteStopDTO> getAllNonLastStops();
-    List<RouteStopDTO> getDestinationsFromOrigin(String origin);
+//    List<RouteStopDTO> getDestinationsFromOrigin(String origin);
 }
