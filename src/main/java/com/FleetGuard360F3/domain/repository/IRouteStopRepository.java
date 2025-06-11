@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface IRouteStopRepository extends JpaRepository<RouteStop, Long> {
     List<RouteStop> findByLastStopFalse();
+    List<RouteStop> findByStopNameAndLastStopFalse(String origin);
 }

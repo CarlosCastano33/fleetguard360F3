@@ -10,4 +10,5 @@ import java.util.List;
 public interface RouteStopMapper {
     RouteStopDTO toDTO(RouteStop routeStop);
     List<RouteStopDTO> toDTOs(List<RouteStop> routeStops);
+    RouteStop toEntity(RouteStopDTO routeStopDTO);
 }
