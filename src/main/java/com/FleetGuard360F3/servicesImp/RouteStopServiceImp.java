@@ -37,7 +37,7 @@ public class RouteStopServiceImp implements IRouteStopService {
 
     @Override
     public RouteStopDTO createRouteStop(RouteStopDTO routeStopDTO){
-        RouteStop routeStop = routeStopMapper.toEntity(routeStopDTO);
+        RouteStop routeStop = toEntity(routeStopDTO);
         RouteStop saved = routeStopRepository.save(routeStop);
         return new RouteStopDTO();
     }
