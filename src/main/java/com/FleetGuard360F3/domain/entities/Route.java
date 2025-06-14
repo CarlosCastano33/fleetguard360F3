@@ -19,8 +19,8 @@ public class Route {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
+
 //    private LocalTime departureTime;
 //    private LocalTime arrivalTime;
 

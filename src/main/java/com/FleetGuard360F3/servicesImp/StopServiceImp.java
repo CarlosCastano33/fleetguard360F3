@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,6 +36,11 @@ public class StopServiceImp implements IStopService {
         return stops.stream()
                 .map(stopMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<Stop> getStopById(Long id) {
+        return stopRepository.findById(id);
     }
 
 }

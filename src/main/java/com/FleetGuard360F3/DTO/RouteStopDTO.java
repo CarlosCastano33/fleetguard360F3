@@ -10,7 +10,10 @@ import lombok.NoArgsConstructor;
 
 public class RouteStopDTO {
     private Long id;
-    private Long routeId;
     private Long stopId;
+    private String stopName;
+    private String location;
+    private Long routeId;
+    private String routeName;
     private Integer stopOrder;
 }

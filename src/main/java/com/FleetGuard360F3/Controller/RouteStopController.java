@@ -23,16 +23,16 @@ public class RouteStopController {
     }
 
     @GetMapping("/origins")
-    public ResponseEntity<List<RouteStopDTO>> getAvailableRouteStops() {
-        List<RouteStopDTO> origins = routeStopService.getAllNonLastStops();
+    public ResponseEntity<List<RouteStopDTO>> getOrigins() {
+        List<RouteStopDTO> origins = routeStopService.findByLastStopFalse();
         return ResponseEntity.ok(origins);
     }
 
-//    @GetMapping("/destinationss")
-//    public ResponseEntity<List<RouteStopDTO>> getDestinationsFromOrigin(@RequestParam String origin){
-//        List<RouteStopDTO> destinations = routeStopService.getDestinationsFromOrigin(origin);
-//        return ResponseEntity.ok(destinations);
-//    }
+    @GetMapping("/destinations")
+    public ResponseEntity<List<RouteStopDTO>> getDestinations(@RequestParam String origin) {
+        List<RouteStopDTO> destinations = routeStopService.getDestinationsFromOrigin(origin);
+        return ResponseEntity.ok(destinations);
+    }
 
 }
 

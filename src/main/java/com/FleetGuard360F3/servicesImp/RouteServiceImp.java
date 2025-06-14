@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,6 +36,11 @@ public class RouteServiceImp implements IRouteService {
         return routes.stream()
                 .map(routeMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<Route> getRouteById(Long id) {
+        return routeRepository.findById(id);
     }
 
 }

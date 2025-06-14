@@ -4,8 +4,11 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 
@@ -41,7 +44,12 @@ public class Reservation {
     @JoinColumn(name = "destination_stop_id")
     private Stop destinationStop;
 
-    private Date date;
+    private LocalDate date;
     private LocalTime time;
+
+    @CreationTimestamp
     private Timestamp timestamp;
+
+    @UpdateTimestamp
+    private Timestamp updatedAt;
 }
