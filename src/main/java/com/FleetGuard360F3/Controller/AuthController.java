@@ -59,16 +59,10 @@ public class AuthController {
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO) {
         try {
-            Optional<Jwt> user = userService.loginUser(loginDTO.getEmail());
+            Optional<String> mailResult = userService.loginUser(loginDTO.getEmail());
 
-            if (user.isPresent()) {
-                Jwt authToken = jwtService.generateLoginToken(loginDTO.getEmail());
-
-                // Send the authToken back in a cookie
-                HttpHeaders headers = new HttpHeaders();
-                headers.add("Set-Cookie", "FleetGuard-Auth-Token=" + authToken.getTokenValue() + "; HttpOnly; Secure; SameSite=Strict; Path=/");
-
-                return ResponseEntity.ok().headers(headers).body("Login successful.");
+            if (mailResult.isPresent()) {
+                return ResponseEntity.ok().body("Login successful, check your email.");
             } else {
                 return ResponseEntity.badRequest().body("Invalid email or phone number.");
             }
@@ -88,7 +82,7 @@ public class AuthController {
 
 
     @RequestMapping(value = "validate", method = RequestMethod.GET)
-    public ResponseEntity<String> validateToken(@CookieValue (value = "FleetGuard-Auth-Token", required = false) String token) {
+    public ResponseEntity<String> validateToken(@CookieValue(value = "FleetGuard-Auth-Token", required = false) String token) {
         if (token == null || token.isEmpty()) {
             return ResponseEntity.status(401).body("Unauthorized: No token provided.");
         }

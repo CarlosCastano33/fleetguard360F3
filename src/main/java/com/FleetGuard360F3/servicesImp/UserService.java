@@ -78,7 +78,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Optional<Jwt> loginUser(String email) {
+    public Optional<String> loginUser(String email) {
         Optional<User> user = userRepository.findUserByEmail(email);
 
         if (user.isEmpty() || !user.get().getIsActive()) {
@@ -86,6 +86,9 @@ public class UserService implements IUserService {
         }
 
         Jwt authToken = jwtService.generateLoginToken(email);
-        return Optional.of(authToken);
+        URI loginConfirmationLink = URI.create("https://localhost:8080/api/auth/login/complete?token=" + authToken.getTokenValue());
+        emailService.sendLoginEmail(email, loginConfirmationLink);
+
+        return Optional.of(email);
     }
 }

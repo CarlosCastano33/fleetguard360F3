@@ -8,5 +8,5 @@ import java.util.Optional;
 public interface IUserService {
     public Optional<User> signupUser(String email, String phoneNumber);
     public Optional<Jwt> completeUserSignup(String token);
-    public Optional<Jwt> loginUser(String email);
+    public Optional<String> loginUser(String email);
 }
