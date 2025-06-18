@@ -1,6 +1,7 @@
 package com.FleetGuard360F3.Controller;
 
 import com.FleetGuard360F3.DTO.RouteDTO;
+import com.FleetGuard360F3.domain.entities.Route;
 import com.FleetGuard360F3.services.IRouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api/route")
+@RequestMapping("/api/routes")
 
 public class RouteController {
 
@@ -21,16 +22,8 @@ public class RouteController {
         this.routeService = routeService;
     }
 
-    @PostMapping
-    public ResponseEntity<RouteDTO> createRoute(@RequestBody RouteDTO routeDTO){
-        RouteDTO createdRoute = routeService.createRoute(routeDTO);
-        return ResponseEntity.ok(createdRoute);
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<RouteDTO>> getRoutes()  {
+        return ResponseEntity.ok(routeService.getAllRoutes());
     }
-
-    @GetMapping("/all")
-    public ResponseEntity<List<RouteDTO>> getAllRoutes(){
-        List<RouteDTO> routes = routeService.getAllRoutes();
-        return ResponseEntity.ok(routes);
-    }
-
 }

@@ -13,16 +13,12 @@ import java.time.LocalTime;
 import java.util.Date;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-
-@Entity
-@Table(name = "reservations")
-
+@Entity(name = "reservations")
 public class Reservation {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(columnDefinition = "CHAR(36)")
+    private String id;
 
     @ManyToOne
     @JoinColumn(name = "passenger_id")
@@ -35,14 +31,6 @@ public class Reservation {
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
-
-    @ManyToOne
-    @JoinColumn(name = "origin_stop_id")
-    private Stop originStop;
-
-    @ManyToOne
-    @JoinColumn(name = "destination_stop_id")
-    private Stop destinationStop;
 
     private LocalDate date;
     private LocalTime time;

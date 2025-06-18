@@ -11,7 +11,6 @@ import java.time.LocalTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class ReservationDTO {
     private Long id;
     private String passenger;

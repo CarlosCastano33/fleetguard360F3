@@ -13,12 +13,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class RouteServiceImp implements IRouteService {
+public class RouteService implements IRouteService {
     private final IRouteRepository routeRepository;
     private final RouteMapper routeMapper;
 
     @Autowired
-    public RouteServiceImp(IRouteRepository routeRepository, RouteMapper routeMapper){
+    public RouteService(IRouteRepository routeRepository, RouteMapper routeMapper){
         this.routeRepository = routeRepository;
         this.routeMapper = routeMapper;
     }
@@ -33,8 +33,9 @@ public class RouteServiceImp implements IRouteService {
     @Override
     public List<RouteDTO> getAllRoutes(){
         List<Route> routes = routeRepository.findAll();
+
         return routes.stream()
-                .map(routeMapper::toDTO)
+                .map(RouteDTO::from)
                 .collect(Collectors.toList());
     }
 

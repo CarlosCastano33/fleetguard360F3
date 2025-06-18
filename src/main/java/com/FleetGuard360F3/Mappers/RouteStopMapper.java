@@ -9,9 +9,6 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface RouteStopMapper {
-    @Mapping(source = "stop.id", target = "stopId")
-    @Mapping(source = "stop.name", target = "stopName")
-    @Mapping(source = "stop.location", target = "location")
     @Mapping(source = "route.id", target = "routeId")
     @Mapping(source = "route.name", target = "routeName")
 //    @Mapping(source = "stopOrder", target = "stopOrder")

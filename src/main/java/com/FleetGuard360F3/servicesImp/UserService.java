@@ -49,10 +49,43 @@ public class UserService implements IUserService {
         }
 
         Jwt signupToken = jwtService.generateSignupToken(email);
-        URI signupConfirmationLink = URI.create("https://localhost:8080/auth/signup/complete?token=" + signupToken.getTokenValue());
+        URI signupConfirmationLink = URI.create("https://localhost:8080/api/auth/signup/complete?token=" + signupToken.getTokenValue());
 
         emailService.sendSignupEmail(email, signupConfirmationLink);
 
         return Optional.of(new User());
+    }
+
+    @Override
+    public Optional<Jwt> completeUserSignup(String token) {
+        Optional<Jwt> validatedToken = jwtService.validateToken(token);
+
+        if (validatedToken.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Optional<User> user = userRepository.findUserByEmail(validatedToken.get().getSubject());
+
+        if (user.isEmpty()) {
+            return Optional.empty();
+        }
+
+        user.get().setIsActive(true);
+        userRepository.save(user.get());
+
+        Jwt authToken = jwtService.generateLoginToken(validatedToken.get().getSubject());
+        return Optional.of(authToken);
+    }
+
+    @Override
+    public Optional<Jwt> loginUser(String email) {
+        Optional<User> user = userRepository.findUserByEmail(email);
+
+        if (user.isEmpty() || !user.get().getIsActive()) {
+            return Optional.empty();
+        }
+
+        Jwt authToken = jwtService.generateLoginToken(email);
+        return Optional.of(authToken);
     }
 }
