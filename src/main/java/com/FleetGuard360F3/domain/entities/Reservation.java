@@ -33,4 +33,15 @@ public class Reservation {
 
     @UpdateTimestamp
     private Timestamp updatedAt;
+
+    public enum Status {
+        Activa, Completada, Cancelada
+    }
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Status status;
+
+    @Column(nullable = false, unique = true)
+    private String confirmationNumber;
 }

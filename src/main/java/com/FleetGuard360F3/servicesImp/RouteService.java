@@ -40,8 +40,8 @@ public class RouteService implements IRouteService {
     }
 
     @Override
-    public Optional<Route> getRouteById(Long id) {
-        return routeRepository.findById(id);
+    public Optional<Route> getRouteById(String id) {
+        return routeRepository.findRouteById(id);
     }
 
 }

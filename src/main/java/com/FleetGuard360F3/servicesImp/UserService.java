@@ -95,4 +95,9 @@ public class UserService implements IUserService {
 
         return Optional.of(email);
     }
+
+    @Override
+    public Optional<User> findUserByEmail(String email) {
+        return userRepository.findUserByEmail(email);
+    }
 }

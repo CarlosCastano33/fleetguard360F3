@@ -6,6 +6,7 @@ import com.resend.core.exception.ResendException;
 import com.resend.services.emails.model.CreateEmailOptions;
 import com.resend.services.emails.model.CreateEmailResponse;
 import org.springframework.stereotype.Service;
+
 import java.net.URI;
 
 @Service
@@ -74,6 +75,33 @@ public class EmailService implements IEmailService {
         try {
             CreateEmailResponse response = resend.emails().send(params);
             System.out.println("Login email sent successfully: " + response.getId());
+        } catch (ResendException e) {
+            System.out.println("ResendException: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void sendReservationConfirmationEmail(String recipientEmail, String confirmationNumber) {
+        String RESERVATION_EMAIL_SUBJECT = "Confirmación de Reserva en FleetGuard360";
+        String RESERVATION_EMAIL_TEMPLATE = """
+                <html>
+                <body>
+                <p>¡Hola!</p>
+                <p>Tu reserva ha sido confirmada exitosamente. Aquí están los detalles:</p>
+                <p><strong>Número de Confirmación:</strong> %s</p>
+                <p>Gracias por elegir FleetGuard360. Si tienes alguna pregunta o necesitas asistencia, no dudes en contactarnos.</p>
+                <p>¡Esperamos verte pronto!</p>
+                </body>
+                </html>
+                """;
+
+        String reservationEmailContent = String.format(RESERVATION_EMAIL_TEMPLATE, confirmationNumber);
+
+        CreateEmailOptions params = CreateEmailOptions.builder().from(fromEmail).to(recipientEmail).subject(RESERVATION_EMAIL_SUBJECT).html(reservationEmailContent).build();
+
+        try {
+            CreateEmailResponse response = resend.emails().send(params);
+            System.out.println("Reservation confirmation email sent successfully: " + response.getId());
         } catch (ResendException e) {
             System.out.println("ResendException: " + e.getMessage());
         }

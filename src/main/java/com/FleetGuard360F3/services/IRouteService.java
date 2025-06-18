@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface IRouteService {
     RouteDTO createRoute(RouteDTO routeDTO);
     List<RouteDTO> getAllRoutes();
-    Optional<Route> getRouteById(Long id);
+    Optional<Route> getRouteById(String id);
 }

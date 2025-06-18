@@ -22,11 +22,9 @@ public class Passenger {
     @Column(length = 50)
     private String name;
 
-    @Column(unique = true, nullable = false)
-    private String phoneNumber;
-
-    @Column(nullable = false)
-    private String email;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @OneToMany(mappedBy = "passenger")
     private List<Reservation> reservations;
