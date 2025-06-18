@@ -38,21 +38,7 @@ public class PassengerServiceImp implements IPassengerService {
     public PassengerDTO createPassenger(PassengerDTO passengerDTO){
         Passenger passenger = passengerMapper.toEntity(passengerDTO);
         Passenger saved = passengerRepository.save(passenger);
-        sendConfirmationEmail(saved); // 🔔
         return passengerMapper.toDTO(saved);
-    }
-
-    private void sendConfirmationEmail(Passenger passenger) {
-        String confirmationLink = baseUrl + "/api/passenger/confirm?token=";
-        String emailBody = "<p>Gracias por registrarte. Haz clic en el siguiente enlace para confirmar tu cuenta:</p>"
-                + "<a href=\"" + confirmationLink + "\">Confirmar correo</a>";
-
-        try {
-            System.out.println("📩 Enviando correo de confirmación a: " + passenger.getEmail());
-            // emailService.sendConfirmationEmail(passenger.getEmail(), "Confirma tu cuenta", emailBody);
-        } catch (Exception e) {
-            e.printStackTrace(); // o usar un logger
-        }
     }
 
     @Override

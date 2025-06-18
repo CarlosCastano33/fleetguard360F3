@@ -28,13 +28,6 @@ public class Reservation {
     @JoinColumn(name = "route_id")
     private Route route;
 
-    @ManyToOne
-    @JoinColumn(name = "vehicle_id")
-    private Vehicle vehicle;
-
-    private LocalDate date;
-    private LocalTime time;
-
     @CreationTimestamp
     private Timestamp timestamp;
 

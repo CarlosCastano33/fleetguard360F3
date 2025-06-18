@@ -6,6 +6,7 @@ import com.FleetGuard360F3.services.IEmailService;
 import com.FleetGuard360F3.services.IJWTService;
 import com.FleetGuard360F3.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,9 @@ public class UserService implements IUserService {
     private final IUserRepository userRepository;
     private final IEmailService emailService;
     private final IJWTService jwtService;
+
+    @Value("${app.base.url}")
+    private String baseUrl;
 
     @Autowired
     public UserService(IUserRepository userRepository, IEmailService emailService, IJWTService jwtService) {
@@ -32,7 +36,7 @@ public class UserService implements IUserService {
         if (user.isPresent()) {
             if (user.get().getIsActive()) {
                 Jwt loginToken = jwtService.generateLoginToken(email);
-                URI loginLink = URI.create("https://localhost:8080/auth/login?token=" + loginToken.getTokenValue());
+                URI loginLink = URI.create(baseUrl + "fg-api/auth/login/complete?token=" + loginToken.getTokenValue());
 
                 emailService.sendLoginEmail(email, loginLink);
                 return user;
@@ -49,7 +53,7 @@ public class UserService implements IUserService {
         }
 
         Jwt signupToken = jwtService.generateSignupToken(email);
-        URI signupConfirmationLink = URI.create("https://localhost:8080/api/auth/signup/complete?token=" + signupToken.getTokenValue());
+        URI signupConfirmationLink = URI.create(baseUrl + "fg-api/auth/signup/complete?token=" + signupToken.getTokenValue());
 
         emailService.sendSignupEmail(email, signupConfirmationLink);
 
@@ -86,7 +90,7 @@ public class UserService implements IUserService {
         }
 
         Jwt authToken = jwtService.generateLoginToken(email);
-        URI loginConfirmationLink = URI.create("https://localhost:8080/api/auth/login/complete?token=" + authToken.getTokenValue());
+        URI loginConfirmationLink = URI.create(baseUrl + "fg-api/auth/login/complete?token=" + authToken.getTokenValue());
         emailService.sendLoginEmail(email, loginConfirmationLink);
 
         return Optional.of(email);

@@ -5,6 +5,7 @@ import com.FleetGuard360F3.DTO.SignupDTO;
 import com.FleetGuard360F3.domain.entities.User;
 import com.FleetGuard360F3.services.IJWTService;
 import com.FleetGuard360F3.services.IUserService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -17,6 +18,9 @@ import java.util.Optional;
 public class AuthController {
     private final IUserService userService;
     private final IJWTService jwtService;
+
+    @Value("${app.base.url}")
+    private String appBaseUrl;
 
     public AuthController(IUserService userService, IJWTService jwtService) {
         this.userService = userService;
@@ -31,9 +35,6 @@ public class AuthController {
             if (createdUser.isPresent()) {
                 return ResponseEntity.ok().body(Optional.of(signupDTO));
             }
-        } catch (IllegalArgumentException e) {
-            // Handle the case where the user already exists
-            return ResponseEntity.badRequest().body(Optional.empty());
         } catch (Exception e) {
             // Handle any other exceptions that may occur
             return ResponseEntity.badRequest().build();
@@ -49,11 +50,11 @@ public class AuthController {
             return ResponseEntity.badRequest().body("Invalid or expired token.");
         }
 
-        // Send the authToken back in a cookie
+        // Send the authToken back in a cookie and redirect to app.base.url
         HttpHeaders headers = new HttpHeaders();
         headers.add("Set-Cookie", "FleetGuard-Auth-Token=" + authToken.get().getTokenValue() + "; HttpOnly; Secure; SameSite=Strict; Path=/");
-
-        return ResponseEntity.ok().headers(headers).body("Signup completed successfully.");
+        headers.add("Location", appBaseUrl);
+        return ResponseEntity.status(302).headers(headers).build();
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
@@ -69,6 +70,21 @@ public class AuthController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Login failed: " + e.getMessage());
         }
+    }
+
+    @RequestMapping(value = "login/complete", method = RequestMethod.GET)
+    public ResponseEntity<String> completeLogin(@RequestParam String token) {
+        Optional<Jwt> authToken = jwtService.validateToken(token);
+
+        if (authToken.isEmpty()) {
+            return ResponseEntity.badRequest().body("Invalid or expired token.");
+        }
+
+        // Send the authToken back in a cookie and redirect to app.base.url
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Set-Cookie", "FleetGuard-Auth-Token=" + authToken.get().getTokenValue() + "; HttpOnly; Secure; SameSite=Strict; Path=/");
+        headers.add("Location", appBaseUrl);
+        return ResponseEntity.status(302).headers(headers).build();
     }
 
     @RequestMapping(value = "logout", method = RequestMethod.POST)
