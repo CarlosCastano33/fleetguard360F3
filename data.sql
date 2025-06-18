@@ -1,6 +1,6 @@
 INSERT INTO routes (id, name, price)
 VALUES
-    ('76d2ffdd-7c48-49ec-bd61-f6ca05f12269', 'Medellín - Manizales (06:00)', 71000),
+    ('76d2ffdd-7c48-49ec-bd61-f6ca05f12269', 'Medellín - Manizales (06:00)', 71000)
 ON CONFLICT (id) DO UPDATE
 SET name = EXCLUDED.name, price = EXCLUDED.price;
 
