@@ -5,6 +5,7 @@ import com.resend.Resend;
 import com.resend.core.exception.ResendException;
 import com.resend.services.emails.model.CreateEmailOptions;
 import com.resend.services.emails.model.CreateEmailResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
@@ -15,9 +16,14 @@ public class EmailService implements IEmailService {
     Resend resend;
     private final String fromEmail;
 
-    public EmailService() {
-        resend = new Resend(System.getenv("RESEND_API_KEY"));
-        fromEmail = System.getenv("RESEND_FROM_NAME") + " <" + System.getenv("RESEND_FROM_EMAIL") + ">";
+    public EmailService(@Value("${resend.api.key}") String apiKey,
+                        @Value("${resend.from.name}") String fromName,
+                        @Value("${resend.from.email}") String fromEmailValue) {
+//        this.resend = new Resend(System.getenv("RESEND_API_KEY"));
+//        this.fromEmail = System.getenv("RESEND_FROM_NAME") + " <" + System.getenv("RESEND_FROM_EMAIL") + ">";
+        this.resend = new Resend(apiKey);
+        this.fromEmail = fromName + " <" + fromEmailValue + ">";
+
     }
 
     @Override

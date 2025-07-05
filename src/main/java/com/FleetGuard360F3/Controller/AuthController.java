@@ -35,9 +35,12 @@ public class AuthController {
 
             if (createdUser.isPresent()) {
                 return ResponseEntity.ok().body(Optional.of(signupDTO));
+            } else {
+            System.out.println("No se pudo crear el usuario.");
             }
         } catch (Exception e) {
             // Handle any other exceptions that may occur
+            e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.badRequest().build();
@@ -55,7 +58,11 @@ public class AuthController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Set-Cookie", "FleetGuard-Auth-Token=" + authToken.get().getTokenValue() + "; HttpOnly; Secure; SameSite=Strict; Path=/");
         headers.add("Location", appBaseUrl);
-        return ResponseEntity.status(302).headers(headers).body(MessageDTO.withMessage("Signup complete"));
+//        return ResponseEntity.status(302).headers(headers).body(MessageDTO.withMessage("Signup complete")); //🐾🐾EDITADO
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(MessageDTO.withMessage("Signup complete"));
+
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
